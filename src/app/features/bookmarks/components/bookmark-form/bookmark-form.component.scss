@@ -1,0 +1,15 @@
+.bookmark-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+mat-form-field {
+  width: 100%;
+}

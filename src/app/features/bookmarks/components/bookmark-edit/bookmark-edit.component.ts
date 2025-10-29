@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Bookmark } from '../../../../core/models/bookmark.model';
@@ -13,41 +12,32 @@ import { BookmarkState } from '../../store/bookmarks.reducer';
   styleUrls: ['./bookmark-edit.component.scss'],
 })
 export class BookmarkEditComponent implements OnInit {
-  bookmarkForm: FormGroup;
   bookmarkId!: number;
-
+  selectedBookmark?: Partial<Bookmark>;
 
   constructor(
     private store: Store<{ bookmarks: BookmarkState }>,
-    private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router
-  ) {
-    this.bookmarkForm = this.fb.group({
-      title: ['', Validators.required],
-      url: ['', [Validators.required, Validators.pattern('https?://.+')]],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.bookmarkId = Number(this.route.snapshot.paramMap.get('id'));
-     this.store
-    .select(state => state.bookmarks.entities[this.bookmarkId])
-    .subscribe(bookmark => {
-      if (bookmark) {
-        this.bookmarkForm.patchValue({
-          title: bookmark.title,
-          url: bookmark.url,
-        });
-      }
-    });
+    this.store
+      .select((state) => state.bookmarks.entities[this.bookmarkId])
+      .subscribe((bookmark) => {
+        if (bookmark) {
+          this.selectedBookmark = { ...bookmark };
+        }
+      });
   }
 
-  onSubmit(): void {
-    const formBookmark: Partial<Bookmark> = this.bookmarkForm.value;
-    this.store.dispatch(
-      BookmarkActions.updateBookmark({ id: this.bookmarkId, changes: formBookmark })
-    );
+  onSave(changes: Partial<Bookmark>) {
+    this.store.dispatch(BookmarkActions.updateBookmark({ id: this.bookmarkId, changes }));
+    this.router.navigate(['/']);
+  }
+
+  onCancel() {
     this.router.navigate(['/']);
   }
 }

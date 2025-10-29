@@ -3,7 +3,6 @@ import { Bookmark } from '../../../../core/models/bookmark.model';
 import { BookmarkActions } from '../../store/bookmarks.actions';
 import { Store } from '@ngrx/store';
 import { BookmarkState } from '../../store/bookmarks.reducer';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,26 +12,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./bookmark-create.component.scss'],
 })
 export class BookmarkCreateComponent implements OnInit {
-  bookmarkForm: FormGroup;
-
-  constructor(
-    private store: Store<{ bookmarks: BookmarkState }>,
-    private fb: FormBuilder,
-    private router: Router
-  ) {
-    this.bookmarkForm = this.fb.group({
-      title: ['', Validators.required],
-      url: ['', [Validators.required, Validators.pattern('https?://.+')]],
-    });
-  }
+  // delegate form to reusable component
+  constructor(private store: Store<{ bookmarks: BookmarkState }>, private router: Router) {}
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
-    const formBookmark: Partial<Bookmark> = this.bookmarkForm.value;
-    this.store.dispatch(
-      BookmarkActions.createBookmark({ bookmark: formBookmark as Omit<Bookmark, 'id'> })
-    );
+  onSave(bookmark: Partial<Bookmark>) {
+    this.store.dispatch(BookmarkActions.createBookmark({ bookmark: bookmark as Omit<Bookmark, 'id'> }));
+    this.router.navigate(['/']);
+  }
+
+  onCancel() {
     this.router.navigate(['/']);
   }
 }

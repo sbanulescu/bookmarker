@@ -1,0 +1,10 @@
+<div *ngIf="loading$ | async">Loading...</div>
+
+<ul>
+  <li *ngFor="let bookmark of bookmarks$ | async">
+    <strong>{{ bookmark.title }}</strong> -
+    <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
+    <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
+    <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
+  </li>
+</ul>

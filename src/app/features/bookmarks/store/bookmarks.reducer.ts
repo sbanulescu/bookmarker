@@ -40,5 +40,4 @@ export const bookmarkReducer = createReducer(
   ),
   on(BookmarkActions.deleteBookmarkSuccess, (state, { id }) => adapter.removeOne(id, state)),
 
-  on(BookmarkActions.setSearchQuery, (state, { query }) => ({ ...state, query }))
 );

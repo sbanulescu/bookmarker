@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { BookmarkService } from '../../bookmark.service';
 
 @Component({
   standalone: false,
@@ -6,17 +7,16 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   templateUrl: './bookmark-layout.component.html',
   styleUrl: './bookmark-layout.component.scss',
   host: { class: 'bookmark-layout' },
-  encapsulation: ViewEncapsulation.None
-
+  encapsulation: ViewEncapsulation.None,
 })
 export class BookmarkLayoutComponent implements OnInit {
   searchQuery = '';
 
-  constructor() {}
+  constructor(private bookmarkService: BookmarkService) {}
 
   ngOnInit(): void {}
 
-  onSearch(query: any): void {
-    console.log('Search query:', query);
+  onSearch(query: string): void {
+    this.bookmarkService.setSearchQuery(query);
   }
 }

@@ -12,21 +12,21 @@ export class InMemoryDataService implements InMemoryDbService {
         id: 1,
         title: 'Angular Documentation',
         url: 'https://angular.io/docs',
-        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // yesterday
+        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
         updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
       },
       {
         id: 2,
         title: 'NgRx Store',
         url: 'https://ngrx.io/guide/store',
-        createdAt: new Date().toISOString(), // today
+        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       },
       {
         id: 3,
         title: 'Angular Material',
         url: 'https://material.angular.io/',
-        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
         updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
       },
     ];

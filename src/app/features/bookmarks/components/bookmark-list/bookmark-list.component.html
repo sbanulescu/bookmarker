@@ -1,10 +1,56 @@
-<!-- <div *ngIf="loading$ | async">Loading...</div> -->
+<div *ngIf="isSearching$ | async">
+  <div *ngIf="searchResults$ | async as results">
+    <h3 *ngIf="results.length">Results for "{{ searchQuery$ | async }}"</h3>
+    <div *ngIf="!results.length" class="empty-state">
+      <p>No bookmarks found matching your search.</p>
+    </div>
+    <ul *ngIf="results.length">
+      <li *ngFor="let bookmark of results">
+        <strong>{{ bookmark.title }}</strong> -
+        <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
+        <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
+        <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
+      </li>
+    </ul>
+  </div>
+</div>
 
-<ul>
-  <li *ngFor="let bookmark of bookmarks$ | async">
-    <strong>{{ bookmark.title }}</strong> -
-    <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
-    <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
-    <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
-  </li>
-</ul>
+<div *ngIf="!(isSearching$ | async)">
+  <div *ngIf="groupedBookmarks$ | async as grouped">
+    <div *ngIf="grouped.today.length">
+      <h3>Today</h3>
+      <ul>
+        <li *ngFor="let bookmark of grouped.today">
+          <strong>{{ bookmark.title }}</strong> -
+          <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
+          <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
+          <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="grouped.yesterday.length">
+      <h3>Yesterday</h3>
+      <ul>
+        <li *ngFor="let bookmark of grouped.yesterday">
+          <strong>{{ bookmark.title }}</strong> -
+          <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
+          <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
+          <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="grouped.older.length">
+      <h3>Older</h3>
+      <ul>
+        <li *ngFor="let bookmark of grouped.older">
+          <strong>{{ bookmark.title }}</strong> -
+          <a [href]="bookmark.url" target="_blank">{{ bookmark.url }}</a>
+          <button mat-button color="primary" [routerLink]="['/edit', bookmark.id]">EDIT</button>
+          <button mat-button color="warn" (click)="deleteBookmark(bookmark.id)">DELETE</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading$ | async">Loading...</div>

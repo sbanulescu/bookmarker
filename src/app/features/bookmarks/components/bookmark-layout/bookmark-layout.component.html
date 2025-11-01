@@ -1,22 +1,22 @@
-<mat-toolbar color="primary">
-  <span>Bookmarker</span>
-  <span class="spacer"></span>
-
-  <mat-form-field class="search-field" appearance="outline">
+<mat-toolbar color="primary" class="toolbar">
+  <h1 class="app-logo">Bookmarker</h1>
+  <mat-form-field appearance="fill" hideHint="true" hideError="true" class="search-field">
+    <input matInput type="text" placeholder="Filter Bookmarks..." [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearch($event)">
     <mat-icon matPrefix>search</mat-icon>
-    <input matInput type="text" placeholder="Search bookmarks..." [(ngModel)]="searchQuery" (ngModelChange)="onSearch($event)">
   </mat-form-field>
 
-  <span class="spacer"></span>
+  <div class="actions">
+    <button mat-button routerLink="/">
+      <mat-icon>bookmarks</mat-icon>
+      Bookmarks
+    </button>
+    <button mat-button routerLink="/create">
+      <mat-icon>add</mat-icon>
+      Add Bookmark
+    </button>
+  </div>
 
-  <button mat-button routerLink="/">
-    <mat-icon>bookmarks</mat-icon>
-    Bookmarks
-  </button>
-  <button mat-button routerLink="/create">
-    <mat-icon>add</mat-icon>
-    Add Bookmark
-  </button>
 </mat-toolbar>
 
 <div class="content">

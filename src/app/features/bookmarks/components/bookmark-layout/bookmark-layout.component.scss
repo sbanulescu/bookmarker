@@ -1,0 +1,33 @@
+.bookmark-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  .app-logo {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+  }
+  .content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  .search-field {
+  width: 250px;
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+
+  .mdc-line-ripple {
+    display: none !important;
+  }
+}
+}
